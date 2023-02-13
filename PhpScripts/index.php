@@ -1,10 +1,3 @@
-<<<<<<< HEAD:View/index.php
-<?php
-require("../View/_inc/Head.php");
-require("../View/_inc/Header.php");
-require("../Controller/DBConnect.php");
-?>
-
 <section class="vh-100">
   <div class="container-fluid h-custom">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -97,16 +90,3 @@ require("../Controller/DBConnect.php");
 </section>
 
 <?php
-require("../View/_inc/Footer.php");
-=======
-<?php
-require("../View/_inc/Head.php");
-require("../View/_inc/Header.php");
-?>
-
-HELLO WORLD
-
-<?php
-require("../View/_inc/Footer.php");
->>>>>>> 00d99ba77ea14d4c2411a15bdecaee0e139a7367:PhpScripts/index.php
-?>
