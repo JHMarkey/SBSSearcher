@@ -2,25 +2,26 @@
 <?php
 require("../View/_inc/head.php");
 require("../View/_inc/header.php");
-require("../Controller/DBConnect.php");
 require("../Controller/CheckLogin.php");
 
 $status = "Not Working";
-
+$userEmail = "email1";
+$pwd = "password1";
+authenticateUser($userEmail, $pwd);
 if(isset($_POST['confirm'])){
 	$status = "POST CON";
+	?> <script> alert("post con"); </script><?php
 	if(isset($_POST['UserEmail'])){
 		$userEmail = $_POST['UserEmail'];
+		
 	} 
 	if(isset($_POST['Password'])){
 		$pwd = $_POST['Password'];
 	}
 	if(null != $pwd && null != $userEmail){
-		if(checkLogin()){
-			$status = "CHECK LOG TRUE";
-		}
 		$status = "CHECK LOG FALSE";
-	}
+		
+	}	
 }
 ?>
 <section class="ftco-section">
