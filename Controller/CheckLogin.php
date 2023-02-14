@@ -1,18 +1,32 @@
 <?php
-function checkLogin(){
-    $tsql = "SELECT [UserEmail],[UserPW] FROM [dbo].[Users]";
-    $getResults = sqlsrv_query($conn, $tsql);
+function authenticateUser($userEmail, $password) {
+    $serverName = "sbss.database.windows.net";
+    $databaseName = "sbsdb";
+    $username = "phpdbLogin";
+    $password = "php-Password123";
 
-    if($getResults == false){
-        echo(sqlsrv_errors());
-    } 
-    else{
-        while ($row = sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC)) {
-            echo ($row['CategoryName'] . " " . $row['ProductName'] . PHP_EOL);
-           }
+    try {
+        $conn = new PDO("sqlsrv:server=$serverName;database=$databaseName", $username, $password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $query = "SELECT * FROM Users WHERE userEmail = :userEmail AND userPW = :password";
+        $stmt = $conn->prepare($query);
+        $stmt->bindParam(":userEmail", $userEmail);
+        $stmt->bindParam(":password", $password);
+        $stmt->execute();
+
+        $result = $stmt->fetchAll();
+
+        if (count($result) == 1) {
+            return true;
+        } else {
+            return false;
         }
-    sqlsrv_free_stmt($getResults);
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+
+    $conn = null;
 }
-    
-    
+
 ?>
