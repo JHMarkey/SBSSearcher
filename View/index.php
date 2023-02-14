@@ -3,6 +3,13 @@
 require("../View/_inc/head.php");
 require("../View/_inc/header.php");
 require("../Controller/DBConnect.php");
+
+if(isset($_POST['Confirm'])){
+	if(isset($_POST['UserEmail'])){
+		$userEmail = $_POST['UserEmail'];
+	} 
+	if(isset($_POST['Password'])): $pwd = $_POST['Password'];
+}
 ?>
 <section class="ftco-section">
 		<div class="container">
@@ -15,13 +22,13 @@ require("../Controller/DBConnect.php");
 		      	<h3 class="text-center mb-4">Sign In</h3>
 						<form action="#" class="login-form">
 		      		<div class="form-group">
-		      			<input type="text" class="form-control rounded-left" placeholder="Username" required>
+		      			<input type="text" class="form-control rounded-left" placeholder="Email" name="UserEmail" required>
 		      		</div>
 	            <div class="form-group d-flex">
-	              <input type="password" class="form-control rounded-left" placeholder="Password" required>
+	              <input type="password" class="form-control rounded-left" placeholder="Password" name="Password" required>
 	            </div>
 	            <div class="form-group">
-	            	<button type="submit" class="form-control btn btn-primary rounded submit px-3">Login</button>
+	            	<button type="submit" name = "Confirm" class="form-control btn btn-primary rounded submit px-3">Login</button>
 	            </div>
 	            <div class="form-group d-md-flex">
 	            	<div class="w-50">

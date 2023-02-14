@@ -5,7 +5,8 @@
         <h1>SBS</h1>
       </div>
       <ul class = "navigation">
-        <a href = "../View/index.php"><li>HomePage</li></a>        
+        <a href = "../View/index.php"><li>Login</li></a> 
+        <a href = "../View/signup.php"><li>Sign Up</li></a>     
 			</ul>
     </div>
   </div>
