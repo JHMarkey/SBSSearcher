@@ -8,7 +8,9 @@ if(isset($_POST['Confirm'])){
 	if(isset($_POST['UserEmail'])){
 		$userEmail = $_POST['UserEmail'];
 	} 
-	if(isset($_POST['Password'])): $pwd = $_POST['Password'];
+	if(isset($_POST['Password'])){
+		$pwd = $_POST['Password'];
+	}
 }
 ?>
 <section class="ftco-section">
