@@ -5,6 +5,8 @@ function checkLogin(){
 
     if($getResults == false){
         echo(sqlsrv_errors());
+        sqlsrv_free_stmt($getResults);
+        return false;
     } 
     else{
         while ($row = sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC)) {
@@ -12,6 +14,7 @@ function checkLogin(){
            }
         }
     sqlsrv_free_stmt($getResults);
+    return true;
 }
     
     

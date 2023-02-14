@@ -5,7 +5,10 @@ require("../View/_inc/header.php");
 require("../Controller/DBConnect.php");
 require("../Controller/CheckLogin.php");
 
-if(isset($_POST['Confirm'])){
+$status = "Not Working";
+
+if(isset($_POST['confirm'])){
+	$status = "POST CON";
 	if(isset($_POST['UserEmail'])){
 		$userEmail = $_POST['UserEmail'];
 	} 
@@ -13,7 +16,10 @@ if(isset($_POST['Confirm'])){
 		$pwd = $_POST['Password'];
 	}
 	if(null != $pwd && null != $userEmail){
-		checkLogin();
+		if(checkLogin()){
+			$status = "CHECK LOG TRUE";
+		}
+		$status = "CHECK LOG FALSE";
 	}
 }
 ?>
@@ -34,7 +40,7 @@ if(isset($_POST['Confirm'])){
 	              <input type="password" class="form-control rounded-left" placeholder="Password" name="Password" required>
 	            </div>
 	            <div class="form-group">
-	            	<button type="submit" name = "Confirm" class="form-control btn btn-primary rounded submit px-3">Login</button>
+					<input class="btn btn-primary btn-lg" type="submit" value="Submit" id="confirm" name="confirm"/>
 	            </div>
 	            <div class="form-group d-md-flex">
 	            	<div class="w-50">
@@ -46,6 +52,7 @@ if(isset($_POST['Confirm'])){
 								<div class="w-50 text-md-right">
 									<a href="#">Forgot Password</a>
 								</div>
+								<?php echo($status); ?>
 	            </div>
 	          </form>
 	        </div>
