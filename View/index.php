@@ -3,6 +3,7 @@
 require("../View/_inc/head.php");
 require("../View/_inc/header.php");
 require("../Controller/DBConnect.php");
+require("../Controller/CheckLogin.php");
 
 if(isset($_POST['Confirm'])){
 	if(isset($_POST['UserEmail'])){
@@ -10,6 +11,9 @@ if(isset($_POST['Confirm'])){
 	} 
 	if(isset($_POST['Password'])){
 		$pwd = $_POST['Password'];
+	}
+	if(null != $pwd && null != $userEmail){
+		checkLogin();
 	}
 }
 ?>
