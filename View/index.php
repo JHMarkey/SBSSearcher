@@ -5,29 +5,30 @@ require("../View/_inc/header.php");
 require("../Controller/CheckLogin.php");
 
 $status = "Not Working";
-$userEmail = 'email';
-$pwd = 'password';
 $result = getUserCredentials();
+$correctEmail = false;
+$correctPwd = false;
+
+$userEmail = $_GET["UserEmail"];
+$pwd = $_GET["Password"];
 
 for($i = 0; $i < count($result); $i++){
-	for($j = 0; $j < count($result[$i])%2; $j++){
-		if($result[$i][$j])
+	if(!$correctEmail){
+		$correctEmail = ($result[$i]["userEmail"] == $userEmail);
 	}
+	if(!$correctPwd){
+		$correctPwd = $result[$i]["userPW"] == $pwd;
+	}		
+}
+session_start();
+$correctEmail && $correctPwd ? $_SESSION["LoggedIn"] = true : $_SESSION["LoggedIn"] = false;
+
+if($_SESSION["LoggedIn"]){
+	header("Location: http://localhost/dashboard/SkillsBuildSearcher/View/home.php");
+} else{
+	print_r($result);
 }
 
-if(isset($_POST['confirm'])){
-	$status = "POST CON";
-	?> <script> alert("post con"); </script><?php
-	if(isset($_POST['UserEmail'])){
-		$userEmail = $_POST['UserEmail'];		
-	} 
-	if(isset($_POST['Password'])){
-		$pwd = $_POST['Password'];
-	}
-	if(null != $pwd && null != $userEmail){
-		$status = "CHECK LOG FALSE";		
-	}	
-}
 ?>
 <section class="ftco-section">
 		<div class="container">
@@ -46,7 +47,7 @@ if(isset($_POST['confirm'])){
 	              <input type="password" class="form-control rounded-left" placeholder="Password" name="Password" required>
 	            </div>
 	            <div class="form-group">
-					<input class="btn btn-primary btn-lg" type="submit" value="Submit" id="confirm" name="confirm"/>
+					<input class="btn btn-primary btn-lg" type="submit" value="Login" id="confirm" name="confirm"/>
 	            </div>
 	            <div class="form-group d-md-flex">
 	            	<div class="w-50">

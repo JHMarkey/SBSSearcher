@@ -1,4 +1,4 @@
-<div class = "footer fixed-bottom">
+<div class = "footer">
       <div class = "inner_footer">
         <div class = "logo_container">
           <h1>SBS</h1>
