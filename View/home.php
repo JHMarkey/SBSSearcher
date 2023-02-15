@@ -1,7 +1,17 @@
 <?php
 require("../View/_inc/head.php");
-require("../View/_inc/header.php");
-require("../Controller/DBConnect.php");
+require("../View/_inc/loggedHeader.php");
+
+if(null != $_GET["FN"] && null != $_GET["SN"] && null != $_GET["E"]){
+
+    $_SESSION["FN"] = $_GET["FN"];
+    $_SESSION["SN"] = $_GET["SN"];
+    $_SESSION["E"] = $_GET["E"];
+} else{
+    ?> <script> alert("Error Authenticating Credentials.\nReturning to Login.");</script><?php
+}
+
+drawHeader();
 ?>
 
 <head>
@@ -12,7 +22,7 @@ require("../Controller/DBConnect.php");
         <div class="inner-container">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Wade </h1>
+                    <h1>The Wade Bot</h1>
                     <div id="chat-box"></div>
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="Type your message...">

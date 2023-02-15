@@ -42,7 +42,7 @@ function getUserCredentials() {
 }
 
 // Function to retrieve user details from the database
-function setDetails($userEmail, $userPW){
+function getDetails($userEmail, $userPW){
   $conn = connect(); // Establishing the database connection
 
   $query = "SELECT * FROM users WHERE userEmail = ? AND userPW = ?"; // SQL query to retrieve user details with given email and password
@@ -63,7 +63,8 @@ function setDetails($userEmail, $userPW){
   }
   
   sqlsrv_close($conn); // Closing the database connection
-  
+  print_r($row);
   return $row; // Returning the Result
+  
 }
 ?>

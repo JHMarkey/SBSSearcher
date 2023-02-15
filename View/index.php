@@ -25,7 +25,9 @@ $correctEmail && $correctPwd ? $_SESSION["LoggedIn"] = true : $_SESSION["LoggedI
 
 if($_SESSION["LoggedIn"]){
 	session_abort();
-	header("Location: http://localhost/dashboard/SkillsBuildSearcher/View/home.php");
+	$row = getDetails($_GET["UserEmail"], $_GET["Password"]);
+	$url = "Http://localhost/dashboard/SkillsBuildSearcher/View/home.php?FN=".urlencode($row["UserFN"])."&SN=".urlencode($row["UserSN"])."&E=".urlencode($row["UserEmail"]);
+	header("Location:$url");	
 }
 ?>
 <section class="ftco-section">
