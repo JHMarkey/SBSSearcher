@@ -2,7 +2,17 @@
 <?php
 require("../View/_inc/head.php");
 require("../View/_inc/header.php");
-require("../Controller/DBConnect.php");
+require("../Controller/CreateUser.php");
+
+isset($_GET["FN"]) ? $FN = $_GET["FN"] : $FN = null;
+isset($_GET["SN"]) ? $SN = $_GET["SN"] : $SN = null;
+isset($_GET["Email"]) ? $E = $_GET["Email"] : $E = null;
+isset($_GET["Pwd"]) ? $P = $_GET["Pwd"] : $P = null;
+
+if($FN != null && $SN != null && $E != null && $P != null) {
+	CreateUser($FN, $SN, $E, $P);
+	header("Location: http://localhost/dashboard/SkillsBuildSearcher/View/home.php");	
+} 
 ?>
 <section class="ftco-section">
 		<div class="container">
@@ -15,22 +25,19 @@ require("../Controller/DBConnect.php");
 		      	<h3 class="text-center mb-4">Sign Up </h3>
 						<form action="#" class="login-form">
 		      		<div class="form-group">
-		      			<input type="text" class="form-control rounded-left" placeholder="First Name" required>
+		      			<input type="text" class="form-control rounded-left" placeholder="First Name" name="FN" required>
 		      		</div>
 					  <div class="form-group">
-		      			<input type="text" class="form-control rounded-left" placeholder="Last Name" required>
+		      			<input type="text" class="form-control rounded-left" placeholder="Last Name" Name="SN"required>
 		      		</div>
 					  <div class="form-group">
-		      			<input type="text" class="form-control rounded-left" placeholder="Email" required>
-		      		</div>
-					  <div class="form-group">
-		      			<input type="text" class="form-control rounded-left" placeholder="University" required>
+		      			<input type="text" class="form-control rounded-left" placeholder="Email" Name="Email" required>
 		      		</div>
 					<div class="form-group d-flex">
-					<input type="password" class="form-control rounded-left" placeholder="Password" required>
+					<input type="password" class="form-control rounded-left" placeholder="Password" Name="Pwd" required>
 					</div>
 	            <div class="form-group">
-	            	<button type="submit" class="form-control btn btn-primary rounded submit px-3">Login</button>
+	            	<button type="submit" class="form-control btn btn-primary rounded submit px-3" Name = "confirm">Sign Up</button>
 	            </div>
 	            
 	          </form>

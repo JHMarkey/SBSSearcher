@@ -9,8 +9,8 @@ $result = getUserCredentials();
 $correctEmail = false;
 $correctPwd = false;
 
-$userEmail = $_GET["UserEmail"];
-$pwd = $_GET["Password"];
+(isset($_GET["UserEmail"])) ? $userEmail = $_GET["UserEmail"] : $userEmail = "";
+(isset($_GET["Password"])) ? $pwd = $_GET["Password"] : $pwd = "";
 
 for($i = 0; $i < count($result); $i++){
 	if(!$correctEmail){
@@ -24,11 +24,9 @@ session_start();
 $correctEmail && $correctPwd ? $_SESSION["LoggedIn"] = true : $_SESSION["LoggedIn"] = false;
 
 if($_SESSION["LoggedIn"]){
+	session_abort();
 	header("Location: http://localhost/dashboard/SkillsBuildSearcher/View/home.php");
-} else{
-	print_r($result);
 }
-
 ?>
 <section class="ftco-section">
 		<div class="container">
@@ -48,18 +46,7 @@ if($_SESSION["LoggedIn"]){
 	            </div>
 	            <div class="form-group">
 					<input class="btn btn-primary btn-lg" type="submit" value="Login" id="confirm" name="confirm"/>
-	            </div>
-	            <div class="form-group d-md-flex">
-	            	<div class="w-50">
-	            		<label class="checkbox-wrap checkbox-primary">Remember Me
-									  <input type="checkbox" checked>
-									  <span class="checkmark"></span>
-									</label>
-								</div>
-								<div class="w-50 text-md-right">
-									<a href="#">Forgot Password</a>
-								</div>
-								
+					<span><a href="http://localhost/dashboard/SkillsBuildSearcher/View/signup.php">SignUp</a></span>
 	            </div>
 	          </form>
 	        </div>
