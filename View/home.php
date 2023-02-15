@@ -9,19 +9,21 @@ require("../Controller/DBConnect.php");
 </head>
 <body>
     <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h1>Wade </h1>
-            <div id="chat-box"></div>
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Type your message...">
-                <div class="input-group-append">
-                    <button class="btn btn-primary" type="button" id="send-btn">Send</button>
+        <div class="inner-container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Wade </h1>
+                    <div id="chat-box"></div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Type your message...">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button" id="send-btn">Send</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </body>
 
 <script type = "text/javascript" src="../View/scripts/WatsonAssistantCreation.js"></script>
@@ -39,7 +41,3 @@ require("../Controller/DBConnect.php");
         });
     });
 </script>
-
-<?php
-require("../View/_inc/Footer.php");
-?>
