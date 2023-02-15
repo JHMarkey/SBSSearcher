@@ -13,7 +13,8 @@ function drawHeader(){?>
             echo($_SESSION["FN"]. " ". $_SESSION["SN"])
             ?></li>
         </a>         
-        <a href = "http://localhost/dashboard/SkillsBuildSearcher/Controller/Logout.php"><li>Log Out</li></a>    
+        <a href = "http://localhost/dashboard/SkillsBuildSearcher/Controller/Logout.php"><li>Log Out</li></a>
+        <a href = "http://localhost/dashboard/SkillsBuildSearcher/View/leaderboard.php"><li>Leader Board</li></a> 
 		</ul>
     </div>
   </div>
