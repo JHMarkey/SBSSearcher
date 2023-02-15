@@ -1,32 +1,34 @@
 <?php
-function authenticateUser($userEmail, $password) {
+function getUserCredentials() {
     $serverName = "sbss.database.windows.net";
-    $databaseName = "sbsdb";
-    $username = "phpdbLogin";
-    $password = "php-Password123";
-
-    try {
-        $conn = new PDO("sqlsrv:server=$serverName;database=$databaseName", $username, $password);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        $query = "SELECT * FROM Users WHERE userEmail = :userEmail AND userPW = :password";
-        $stmt = $conn->prepare($query);
-        $stmt->bindParam(":userEmail", $userEmail);
-        $stmt->bindParam(":password", $password);
-        $stmt->execute();
-
-        $result = $stmt->fetchAll();
-
-        if (count($result) == 1) {
-            return true;
-        } else {
-            return false;
-        }
-    } catch (PDOException $e) {
-        echo "Error: " . $e->getMessage();
+    $connectionOptions = array(
+      "Database" => "sbsdb",
+      "UID" => "phpdbLogin",
+      "PWD" => "php-Password123"
+    );
+  
+    $conn = sqlsrv_connect($serverName, $connectionOptions);
+    if (!$conn) {
+      die("Connection failed: " . sqlsrv_errors());
     }
+  
+    $sql = "SELECT userEmail, userPW FROM Users";
+    $stmt = sqlsrv_query($conn, $sql);
+    if ($stmt === false) {
+      die("Query failed: " . sqlsrv_errors());
+    }
+  
+    $results = array();
+    while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+      $results[] = $row;
+    }
+  
+    sqlsrv_free_stmt($stmt);
+    sqlsrv_close($conn);
+  
+    return $results;
+  }
+  
 
-    $conn = null;
-}
 
 ?>

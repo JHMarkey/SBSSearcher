@@ -5,22 +5,27 @@ require("../View/_inc/header.php");
 require("../Controller/CheckLogin.php");
 
 $status = "Not Working";
-$userEmail = "email1";
-$pwd = "password1";
-authenticateUser($userEmail, $pwd);
+$userEmail = 'email';
+$pwd = 'password';
+$result = getUserCredentials();
+
+for($i = 0; $i < count($result); $i++){
+	for($j = 0; $j < count($result[$i])%2; $j++){
+		if($result[$i][$j])
+	}
+}
+
 if(isset($_POST['confirm'])){
 	$status = "POST CON";
 	?> <script> alert("post con"); </script><?php
 	if(isset($_POST['UserEmail'])){
-		$userEmail = $_POST['UserEmail'];
-		
+		$userEmail = $_POST['UserEmail'];		
 	} 
 	if(isset($_POST['Password'])){
 		$pwd = $_POST['Password'];
 	}
 	if(null != $pwd && null != $userEmail){
-		$status = "CHECK LOG FALSE";
-		
+		$status = "CHECK LOG FALSE";		
 	}	
 }
 ?>
@@ -53,7 +58,7 @@ if(isset($_POST['confirm'])){
 								<div class="w-50 text-md-right">
 									<a href="#">Forgot Password</a>
 								</div>
-								<?php echo($status); ?>
+								
 	            </div>
 	          </form>
 	        </div>
