@@ -5,5 +5,5 @@
     unset($_SESSION['E']);
     session_destroy();
 
-    header("location: http://localhost/dashboard/SkillsBuildSearcher/View/index.php ");
+    header("location:../View/index.php ");
 ?>

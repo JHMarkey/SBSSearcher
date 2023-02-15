@@ -11,7 +11,7 @@ isset($_GET["Pwd"]) ? $P = $_GET["Pwd"] : $P = null;
 
 if($FN != null && $SN != null && $E != null && $P != null) {
 	CreateUser($FN, $SN, $E, $P);
-	$url = "Http://localhost/dashboard/SkillsBuildSearcher/View/home.php?FN=".urlencode($FN)."&SN=".urlencode($SN)."&E=".urlencode($E);
+	$url = "home.php?FN=".urlencode($FN)."&SN=".urlencode($SN)."&E=".urlencode($E);
 	header("Location: $url");	
 } 
 ?>

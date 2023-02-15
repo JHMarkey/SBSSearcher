@@ -26,7 +26,7 @@ $correctEmail && $correctPwd ? $_SESSION["LoggedIn"] = true : $_SESSION["LoggedI
 if($_SESSION["LoggedIn"]){
 	session_abort();
 	$row = getDetails($_GET["UserEmail"], $_GET["Password"]);
-	$url = "Http://localhost/dashboard/SkillsBuildSearcher/View/home.php?FN=".urlencode($row["UserFN"])."&SN=".urlencode($row["UserSN"])."&E=".urlencode($row["UserEmail"]);
+	$url = "home.php?FN=".urlencode($row["UserFN"])."&SN=".urlencode($row["UserSN"])."&E=".urlencode($row["UserEmail"]);
 	header("Location:$url");	
 }
 ?>
@@ -48,7 +48,7 @@ if($_SESSION["LoggedIn"]){
 	            </div>
 	            <div class="form-group">
 					<input class="btn btn-primary btn-lg" type="submit" value="Login" id="confirm" name="confirm"/>
-					<span><a href="http://localhost/dashboard/SkillsBuildSearcher/View/signup.php">SignUp</a></span>
+					<span><a href="SkillsBuildSearcher/View/signup.php">SignUp</a></span>
 	            </div>
 	          </form>
 	        </div>
