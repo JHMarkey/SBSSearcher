@@ -9,6 +9,7 @@ if(null != $_GET["FN"] && null != $_GET["SN"] && null != $_GET["E"]){
     $_SESSION["E"] = $_GET["E"];
 } else{
     ?> <script> alert("Error Authenticating Credentials.\nReturning to Login.");</script><?php
+    header("location: http://localhost/dashboard/SkillsBuildSearcher/View/index.php ");
 }
 
 drawHeader();

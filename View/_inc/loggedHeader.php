@@ -11,7 +11,9 @@ function drawHeader(){?>
         <a><li><?php 
             session_start();
             echo($_SESSION["FN"]. " ". $_SESSION["SN"])
-            ?></li></a>              
+            ?></li>
+        </a>         
+        <a href = "http://localhost/dashboard/SkillsBuildSearcher/Controller/Logout.php"><li>Log Out</li></a>    
 		</ul>
     </div>
   </div>
