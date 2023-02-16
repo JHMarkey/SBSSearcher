@@ -8331,3 +8331,14 @@ body {
           #leaderboard-table td:first-child {
             font-weight: bold;
           }
+          #history-container {
+            float: left;
+            margin-right: 20px;
+          }
+          #history-table {
+            border: 1px solid black;
+            border-collapse: collapse;
+          }
+          #history-table th {
+            background-color: lightgray;
+          }
