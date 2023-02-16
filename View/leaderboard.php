@@ -30,6 +30,17 @@ $results = array();
 while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
     $results[] = $row;
 }
+
+
+$query = "SELECT * FROM Courses";
+$stmt = sqlsrv_query($conn, $query);
+if ($stmt === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+$results2 = array();
+while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+    $results2[] = $row;
+}
 ?>
 
 
@@ -47,6 +58,30 @@ while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
     <tbody>
         <?php 
         foreach($results as $r){
+            echo '<tr>';
+            foreach($r as $cell){
+                echo '<td>' . $cell . '</td>';
+            }
+            echo '</tr>';
+        }
+        ?>
+    </tbody> 
+  </table>
+</div>
+
+<div class="leaderboard-container">
+  <h2>Courses</h2>
+  <table id="leaderboard-table">
+    <thead>
+      <tr>
+        <th>CourseID</th>
+        <th>Course Name</th>
+        <th>Course Link </th>
+      </tr>
+    </thead>
+    <tbody>
+        <?php 
+        foreach($results2 as $r){
             echo '<tr>';
             foreach($r as $cell){
                 echo '<td>' . $cell . '</td>';
