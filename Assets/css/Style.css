@@ -8305,20 +8305,28 @@ body {
           color: #fff; }
     
 
-          .history-container {
-            float: left;
-            width: 10%;
+          .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
           }
+
           .leaderboard-container {
-            margin: 0 auto;
             width: 80%;
-          }
-          #leaderboard-table,
-          #history-table {
+            margin: 10px;
             border: 1px solid black;
-            border-collapse: collapse;
           }
-          #leaderboard-table th,
-          #history-table th {
+
+          table {
+            border-collapse: collapse;
+            width: 100%;
+          }
+
+          th, td {
+            border: 1px solid black;
+            padding: 8px;
+          }
+
+          th {
             background-color: lightgray;
           }

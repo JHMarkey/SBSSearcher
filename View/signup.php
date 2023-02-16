@@ -16,7 +16,7 @@ if($FN != null && $SN != null && $E != null && $P != null) {
 } 
 ?>
 <section class="ftco-section">
-		<div class="container">
+		<div class="container2">
 			<div class="row justify-content-center">
 				<div class="col-md-7 col-lg-5">
 					<div class="login-wrap p-4 p-md-5">

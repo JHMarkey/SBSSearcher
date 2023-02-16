@@ -4,9 +4,12 @@ require("../View/_inc/loggedHeader.php");
 
 
 session_start();
-if(null!=$_SESSION["FN"] && null!=$_SESSION["SN"] && null!= $_SESSION["E"]){        
-    drawHeader();
-} else if(null != $_GET["FN"] && null != $_GET["SN"] && null != $_GET["E"]){
+if(isset($_SESSION["FN"])){
+    if(null!=$_SESSION["FN"] && null!=$_SESSION["SN"] && null!= $_SESSION["E"]){        
+        drawHeader();
+    }
+}
+ else if(null != $_GET["FN"] && null != $_GET["SN"] && null != $_GET["E"]){
     $_SESSION["FN"] = $_GET["FN"];
     $_SESSION["SN"] = $_GET["SN"];
     $_SESSION["E"] = $_GET["E"];
@@ -74,70 +77,38 @@ $results2 = array();
 while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
     $results2[] = $row;
 }
+
+if(isset($_POST["complete"])){
+    $courseID = $_POST["complete"];
+    
+    $sql = "INSERT INTO UserCourse (CourseID, UserID) VALUES (?, (SELECT UserID FROM Users WHERE UserFN = ? AND UserSN = ? AND UserEmail = ?))";
+
+    $userFN = $_SESSION["FN"];
+    $userSN = $_SESSION["SN"];
+    $userEmail = $_SESSION["E"];
+    $params = array($courseID, $userFN, $userSN, $userEmail);
+
+    // Execute the SQL statement
+    $stmt = sqlsrv_prepare($conn, $sql, $params);
+
+}
 ?>
 
 
 
 
-
+<div class="container">
 <div class="leaderboard-container">
-  <h2>Leaderboard</h2>
-  <table id="leaderboard-table">
-    <thead>
-      <tr>
-        <th>Rank</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th># Courses</th>
-      </tr>
-    </thead>
-    <tbody>
-        <?php 
-        foreach($results1 as $r){
-            echo '<tr>';
-            foreach($r as $cell){
-                echo '<td>' . $cell . '</td>';
-            }
-            echo '</tr>';
-        }
-        ?>
-    </tbody> 
-  </table>
-</div>
-
-<div class="leaderboard-container">
-  <h2>Courses</h2>
-  <table id="leaderboard-table">
-    <thead>
-      <tr>
-        <th>CourseID</th>
-        <th>Course Name</th>
-        <th>Course Link </th>
-      </tr>
-    </thead>
-    <tbody>
-        <?php 
-        foreach($results2 as $r){
-            echo '<tr>';
-            foreach($r as $cell){
-                echo '<td>' . $cell . '</td>';
-            }
-            echo '</tr>';
-        }
-        ?>
-    </tbody> 
-  </table>
-</div>
-<div class="history-container">
-  <h2>User History</h2>
-  <table id="history-table">
-    <thead>
-      <tr>
-        <th>User</th>
-        <th>Course</th>
-      </tr>
-    </thead>
-    <tbody>
+    <h2>User History</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>User First Name</th>
+          <th>User Last Name</th>
+          <th>Course Name</th>
+        </tr>
+      </thead>
+      <tbody>
         <?php 
         foreach($results as $r){
             echo '<tr>';
@@ -147,9 +118,64 @@ while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
             echo '</tr>';
         }
         ?>
-    </tbody> 
-  </table>
+      </tbody> 
+    </table>
+  </div>
+  <div class="leaderboard-container">
+    <h2>Leaderboard</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th># Courses</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php 
+        foreach($results1 as $r){
+            echo '<tr>';
+            foreach($r as $cell){
+                echo '<td>' . $cell . '</td>';
+            }
+            echo '</tr>';
+        }
+        ?>
+      </tbody> 
+    </table>
+  </div>
+
+  <div class="leaderboard-container">
+  <h2>Courses</h2>
+   
+<table>
+  <thead>
+    <tr>
+      <th>CourseID</th>
+      <th>Course Name</th>
+      <th>Course Link</th>
+      <th>Completed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php 
+    foreach($results2 as $r){
+        echo '<tr>';
+        foreach($r as $cell){
+            echo '<td>' . $cell . '</td>';
+        }
+        echo '<td><form method = "post"><button type = "submit" name = "complete" value="' . $r['CourseID'] . '">Complete</button></form></td>';// add a button with "Complete" written on it
+        echo '</tr>';
+    }
+    ?>
+  </tbody> 
+</table>
+  </div>
+
+  
 </div>
+
 </body>
 
 
