@@ -18,10 +18,6 @@ if(null != $_GET["FN"] && null != $_GET["SN"] && null != $_GET["E"]){
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <?php
-// Assuming you have already started a session and have the UserFn and UserSn stored as session variables
-$userFn = $_SESSION['FN'];
-$userSn = $_SESSION['SN'];
-
 function connect(){
     $serverName = "sbss.database.windows.net"; // Server name
     $connectionOptions = array(
@@ -39,40 +35,45 @@ function connect(){
 }
 
 $conn = connect();
-
-// Build the SQL query to select the user IDs for the given UserFn and UserSn
-$sql = "SELECT UserId FROM users WHERE UserFN='$userFn' AND UserSn='$userSn'";
-
-// Execute the SQL query
-$result = sqlsrv_query($conn, $sql);
-
-// Check for errors
-$errors = sqlsrv_errors();
-if ($errors != null) {
-  die("Error executing SQL query: " . print_r($errors, true));
+$query = "SELECT Users.UserFN, Users.UserSN, Courses.CourseName 
+FROM Users
+LEFT JOIN UserCourse ON Users.UserID = UserCourse.UserID 
+LEFT JOIN Courses ON UserCourse.CourseID = Courses.CourseID
+WHERE Users.UserFN = '{$_SESSION["FN"]}' AND Users.UserSN = '{$_SESSION["SN"]}'";                                       
+$stmt = sqlsrv_query($conn, $query);
+if ($stmt === false) {
+    die(print_r(sqlsrv_errors(), true));
 }
-
-// Check for errors and make sure there is at least one row returned
-if ($result === false) {
-    die("Error executing SQL query: " . $conn->error);
-  } elseif (sqlsrv_has_rows($result) === false) {
-    echo "No matching users found";
-  } else {
-    // Loop through the results and display each user ID in a list
-    echo '<body>';
-    echo '<div style="background-color: #f5f5f5; padding: 20px;">';
-    echo '<h3 style="color: #333333;">Courses Complete</h3>';
-    echo '<ul style="list-style: none; padding: 0;">';
-    while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
-      echo '<li>' . $row['UserId'] . '</li>';
-    }
-    echo '</ul>';
-    echo '</div>';
-    echo '</body>';
-  }
-
-
+$results = array();
+while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+    $results[] = $row;
+}
 ?>
+
+
+<div class="history-container">
+  <h2>User History</h2>
+  <table id="history-table">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Course</th>
+      </tr>
+    </thead>
+    <tbody>
+        <?php 
+        foreach($results as $r){
+            echo '<tr>';
+            foreach($r as $cell){
+                echo '<td>' . $cell . '</td>';
+            }
+            echo '</tr>';
+        }
+        ?>
+    </tbody> 
+  </table>
+</div>
+</body>
 
 
 <script type = "text/javascript" src="../View/scripts/WatsonAssistantCreation.js"></script>
