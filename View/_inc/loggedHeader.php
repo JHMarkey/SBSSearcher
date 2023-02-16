@@ -9,7 +9,6 @@ function drawHeader(){?>
       </div>
       <ul class = "navigation">
         <a><li><?php 
-            session_start();
             echo($_SESSION["FN"]. " ". $_SESSION["SN"])
             ?></li>
         </a>         
