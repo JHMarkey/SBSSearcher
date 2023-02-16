@@ -8308,6 +8308,7 @@ body {
           .leaderboard-container {
             margin: 0 auto;
             max-width: 600px;
+            width: 90%;
           }
           
           #leaderboard-table {
@@ -8332,6 +8333,7 @@ body {
             font-weight: bold;
           }
           #history-container {
+            width: 10%;
             float: left;
             margin-right: 20px;
           }
