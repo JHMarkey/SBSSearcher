@@ -1,6 +1,9 @@
 <?php
 require("../View/_inc/head.php");
 require("../View/_inc/loggedHeader.php");
+session_start();
+drawHeader();
+
 function connect(){
     $serverName = "sbss.database.windows.net"; // Server name
     $connectionOptions = array(
@@ -18,53 +21,41 @@ function connect(){
 }
 
 $conn = connect();
-// Query to retrieve leaderboard data
-$sql = "SELECT UserID, COUNT(*) AS num_courses_completed FROM UserCourse GROUP BY UserID ORDER BY num_courses_completed DESC";
-$stmt = sqlsrv_query($conn, $sql);
-
-// Build leaderboard table HTML
-$leaderboard_html = "<thead><tr><th>Rank</th><th>UserID</th><th>Courses Completed</th></tr></thead>";
-$leaderboard_html .= "<tbody>";
-$rank = 1;
-while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-    $leaderboard_html .= "<tr><td>{$rank}</td><td>{$row['UserID']}</td><td>{$row['num_courses_completed']}</td></tr>";
-    $rank++;
+$query = "SELECT Users.UserID, Users.UserFN, Users.UserSN, COUNT(UserCourse.CourseID) AS NumCoursesCompleted FROM Users LEFT JOIN UserCourse ON Users.UserID = UserCourse.UserID GROUP BY Users.UserID, Users.UserFN, Users.UserSN";                                       
+$stmt = sqlsrv_query($conn, $query);
+if ($stmt === false) {
+    die(print_r(sqlsrv_errors(), true));
 }
-$leaderboard_html .= "</tbody>";
-echo $leaderboard_html;
+$results = array();
+while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+    $results[] = $row;
+}
 ?>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            // Load initial leaderboard data
-            updateLeaderboard();
 
-            // Add click handler for refresh button
-            $("#refresh-button").click(function() {
-                updateLeaderboard();
-            });
-        });
-
-        function updateLeaderboard() {
-            // Make AJAX request to retrieve leaderboard data
-            $.ajax({
-                url: "get_leaderboard_data.php",
-                success: function(data) {
-                    // Replace leaderboard table with updated data
-                    $("#leaderboard-table").html(data);
-                }
-            });
+<div class="leaderboard-container">
+  <h2>Leaderboard</h2>
+  <table id="leaderboard-table">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th># Courses</th>
+      </tr>
+    </thead>
+    <tbody>
+        <?php 
+        foreach($results as $r){
+            echo '<tr>';
+            foreach($r as $cell){
+                echo '<td>' . $cell . '</td>';
+            }
+            echo '</tr>';
         }
-    </script>
-
-
-    <h1>Course Completion Leaderboard</h1>
-    <div id="leaderboard-container">
-        <table id="leaderboard-table">
-            <!-- Table data will be dynamically updated by JavaScript -->
-        </table>
-        <button id="refresh-button">Refresh</button>
-    </div>
+        ?>
+    </tbody> 
+  </table>
+</div>
 </body>
 </html>
