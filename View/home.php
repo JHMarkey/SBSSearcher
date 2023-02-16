@@ -2,13 +2,17 @@
 require("../View/_inc/head.php");
 require("../View/_inc/loggedHeader.php");
 
-if(null != $_GET["FN"] && null != $_GET["SN"] && null != $_GET["E"]){
-    session_start();
+
+session_start();
+if(null!=$_SESSION["FN"] && null!=$_SESSION["SN"] && null!= $_SESSION["E"]){        
+    drawHeader();
+} else if(null != $_GET["FN"] && null != $_GET["SN"] && null != $_GET["E"]){
     $_SESSION["FN"] = $_GET["FN"];
     $_SESSION["SN"] = $_GET["SN"];
     $_SESSION["E"] = $_GET["E"];
     drawHeader();
-} else{
+}else{
+    session_abort();
     ?> <script> alert("Error Authenticating Credentials.\nReturning to Login.");</script><?php
     header("location:index.php ");
 }

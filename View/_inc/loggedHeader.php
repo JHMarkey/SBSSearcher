@@ -5,7 +5,7 @@ function drawHeader(){?>
   <div class = "header">
     <div class="inner_header">
       <div class="logo_container">
-        <h1>SBS</h1>
+        <h1><a href = "home.php">SBS</a></h1>
       </div>
       <ul class = "navigation">
         <a><li><?php 
