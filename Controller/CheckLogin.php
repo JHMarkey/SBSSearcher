@@ -20,6 +20,7 @@ function connect(){
 
 // Function to retrieve user credentials from the database
 function getUserCredentials() {
+  
   $conn = connect(); // Establishing the database connection
   
   $sql = "SELECT userEmail, userPW FROM Users"; // SQL query to retrieve user email and password

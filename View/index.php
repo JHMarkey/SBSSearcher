@@ -10,6 +10,7 @@ if(isset($_SESSION["FN"]) && $_SESSION["FN"] != null){
 	session_abort();
 }
 
+
 $result = getUserCredentials();
 $correctEmail = false;
 $correctPwd = false;

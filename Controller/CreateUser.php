@@ -39,4 +39,5 @@ function CreateUser($UserFN, $UserSN, $UserEmail, $UserPW) {
   // Return a success message
   return "User created successfully";
 }
+
 ?>

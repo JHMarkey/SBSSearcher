@@ -69,6 +69,7 @@ while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
   </table>
 </div>
 
+
 <div class="leaderboard-container">
   <h2>Courses</h2>
   <table id="leaderboard-table">

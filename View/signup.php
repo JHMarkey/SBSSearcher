@@ -15,6 +15,7 @@ if($FN != null && $SN != null && $E != null && $P != null) {
 	header("Location: $url");	
 } 
 ?>
+
 <section class="ftco-section">
 		<div class="container2">
 			<div class="row justify-content-center">

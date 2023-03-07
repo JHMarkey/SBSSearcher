@@ -9,3 +9,4 @@ setTimeout(function(){
   t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";
   document.head.appendChild(t);
 });
+
