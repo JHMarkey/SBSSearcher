@@ -16,7 +16,6 @@ function connect(){
   return $conn; // Returning the established database connection
 }
 
-
 function CreateUser($UserFN, $UserSN, $UserEmail, $UserPW) {
   $conn = connect();
 
