@@ -20,8 +20,6 @@ function connect(){
     if($itemData == null){
         echo("No Item");
     }
-
-    print_r($itemData);
 	
 	$conn = connect();
 	
@@ -31,7 +29,7 @@ function connect(){
 	} else {
 		$iconID = null;
         $tsql = "SELECT IconID FROM Icons WHERE IconName = ?";
-        $params = array($itemData[0]); // Parameters for the SQL query
+        $params = array($itemData['item']); // Parameters for the SQL query
   
         $stmt = sqlsrv_query($conn, $tsql, $params); // Executing the SQL query on the database connection
         
@@ -42,7 +40,7 @@ function connect(){
         
         $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC); // Fetching the query result row
             
-        print_r($results);
+        $iconID = $row['IconID'];
         
         sqlsrv_free_stmt($stmt);
         $userID = 1;
@@ -53,17 +51,17 @@ function connect(){
 		
 		if ($stmt === false) {
 			// code to execute if the SQL statement preparation fails
-			//die(print_r(sqlsrv_errors(), true));
+			die(print_r(sqlsrv_errors(), true));
 		} else {
 			// code to execute if the SQL statement preparation succeeds
 			
 			// execute the SQL statement to insert the item into the database
 			if (sqlsrv_execute($stmt) === false) {
 				// code to execute if the SQL statement execution fails
-				//die(print_r(sqlsrv_errors(), true));
+				die(print_r(sqlsrv_errors(), true));
 			} else {
 				// code to execute if the SQL statement execution succeeds
-				echo "";
+				echo "Icon Successfully Added to Account.";
 			}
 		}
 	}
