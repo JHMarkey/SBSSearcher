@@ -8418,3 +8418,43 @@ body {
           max-width: 100%;
           max-height: 100%;
         }
+
+        .container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+        }
+      
+        .group {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-right: 50px;
+          padding: 20px;
+          border: 1px solid black;
+          background-color: #f5f5f5;
+        }
+      
+        .group img {
+          width: 100px;
+          height: 100px;
+          margin: 5px;
+          background-color: red;
+        }
+      
+        .group:nth-child(2) {
+          margin-right: 0;
+        }
+      
+        .drop-area {
+          display: flex;
+        }
+      
+        .drop-zone {
+          width: 50px;
+          height: 50px;
+          margin: 5px;
+          border: 1px solid black;
+          background-color: #c9c9c9;
+        }
