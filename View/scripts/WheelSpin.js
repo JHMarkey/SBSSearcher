@@ -1,9 +1,9 @@
 function unbox() {
 	var itemCycleDiv = document.getElementById("item-cycle");
 	var finalItemDiv = document.getElementById("final-item");
-	
+	console.log("Hello World");
 	// array of possible items
-	var items = ["Bunny", "Cat", "Clown1", "Clown", "Cowboy","Cupcake", "Dead", "Devil", "Dracula", "Robot", "Softdrink"];
+	var items = getMissingItems();
 	
 	// number of times to cycle through possible items
 	var cycles = 20;
@@ -33,28 +33,50 @@ function unbox() {
 	}, cycles * cycleTime + finalTime);
 }
 
+function getMissingItems(){
+	console.log("HERE");
+	// Create a new XMLHttpRequest object
+	var xhr = new XMLHttpRequest();
+
+	// Open a new POST request to GetMissingItems.php file
+	xhr.open("POST", "../Controller/GetMissingIcons.php");
+
+	// Set the content type header to JSON
+	xhr.setRequestHeader("Content-Type", "application/json");
+
+	xhr.onreadystatechange = function(){
+		res = "No Response";
+		if (xhr.readyState === 4 && xhr.status === 200) {
+			res = xhr.responseText;
+		}		 
+	};
+
+	res = xhr.onreadystatechange();
+	console.log("HERE");
+	console.log(res);
+	return res;
+}	
+
 function saveItemToDatabase(item) {
 	// create a JSON object containing the item to be saved
 	var itemData = { item: item };
 	// Create a new XMLHttpRequest object
-var xhr = new XMLHttpRequest();
+	var xhr = new XMLHttpRequest();
 
-// Open a new POST request to the save-item.php file
-xhr.open("POST", "../Controller/save-item.php");
+	// Open a new POST request to the save-item.php file
+	xhr.open("POST", "../Controller/save-item.php");
 
-// Set the content type header to JSON
-xhr.setRequestHeader("Content-Type", "application/json");
+	// Set the content type header to JSON
+	xhr.setRequestHeader("Content-Type", "application/json");
 
-// Send the JSON object as the request body
-xhr.send(JSON.stringify(itemData));
+	// Send the JSON object as the request body
+	xhr.send(JSON.stringify(itemData));
 
-// Handle the response
-xhr.onreadystatechange = function() {
-  if (xhr.readyState === 4 && xhr.status === 200) {
-    console.log(xhr.responseText);
-  }
-};
-	
-
-	
+	// Handle the response
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4 && xhr.status === 200) {
+			console.log(xhr.responseText);
+		}
+	};
+		
 }

@@ -62,4 +62,5 @@ sqlsrv_free_stmt($not_user_icons_stmt);
 sqlsrv_close($conn);
 
 // Now $not_user_icons array should contain all icons that the user does not have
+print_r($not_user_icons);
 ?>
