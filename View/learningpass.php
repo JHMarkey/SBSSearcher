@@ -1,23 +1,52 @@
 <?php 
 require ("../View/_inc/head.php");
 require("../View/_inc/header.php");
+
+function connect(){
+    $serverName = "sbss.database.windows.net"; // Server name
+    $connectionOptions = array(
+      "Database" => "sbsdb", // Database name
+      "UID" => "phpdbLogin", // Database login user ID
+      "PWD" => "php-Password123" // Database login password
+    );
+    $conn = sqlsrv_connect($serverName, $connectionOptions); // Establishing the database connection
+    
+    // Checking the database connection status and throwing an error message if the connection failed
+    if (!$conn) {
+      die("Connection failed: " . sqlsrv_errors());
+    }
+    return $conn; // Returning the established database connection
+  }
+
+  $conn = connect();
+
+  
 ?>
-<script src = "../View/scripts/LearningPass.js"></script>
+
 
 	<div class="battle-pass">
-		<div class="level-progress">
-			<h3>Level Progress</h3>
-			<div id="progress-bar">
-                <div id="progress-bar-fill"></div>
-            </div>
-		</div>
+        <div class="progress-bar">
+            <div class="progress-bar__fill"></div>
+                <div class="progress-bar__text">Level 1 - 0%</div>
+                    <div class="progress-bar__next-level">Level 2 - 5%</div>
+
+    </div>
+
+<button onclick="updateProgressBar()">Increase Level</button>
+
 		<div class="level-rewards">
 			<h3>Level Rewards</h3>
-			<ul>
-				<li>Level 1: Reward A</li>
-				<li>Level 2: Reward B</li>
-				<li>Level 3: Reward C</li>
-			</ul>
+			<div id="container">
+                <?php
+                    for ($i = 1; $i <= 20; $i++) {
+                    echo '<div class="reward-box">';
+                    echo '<img src="../Assets/Icons/reward-' . $i . '.png" alt="Reward ' . $i . '" class="reward-image">';
+                    echo '<div>Reward ' . $i . '</div>';
+                    echo '</div>';
+                    }
+                ?>
+            </div>
 		</div>
-		<button class="next-level">Next Level</button>
 	</div>
+
+    <script src = "../View/scripts/LearningPass.js"></script>
