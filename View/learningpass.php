@@ -7,7 +7,9 @@ require("../View/_inc/header.php");
 	<div class="battle-pass">
 		<div class="level-progress">
 			<h3>Level Progress</h3>
-			<div class="progress-bar"></div>
+			<div id="progress-bar">
+                <div id="progress-bar-fill"></div>
+            </div>
 		</div>
 		<div class="level-rewards">
 			<h3>Level Rewards</h3>

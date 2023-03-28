@@ -8331,4 +8331,54 @@ body {
             background-color: lightgray;
           }
         
-
+          .battle-pass {
+            width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 10px;
+        }
+        
+        .level-progress {
+            margin-bottom: 20px;
+        }
+        
+        .progress-bar {
+            width: 0%;
+            height: 20px;
+            background-color: #4CAF50;
+            border-radius: 10px;
+        }
+        
+        .level-rewards {
+            margin-bottom: 20px;
+        }
+        
+        .level-rewards ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .next-level {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #progress-bar {
+          width: 200px;
+          height: 20px;
+          background-color: #ddd;
+          border-radius: 10px;
+        }
+        
+        #progress-bar-fill {
+          height: 100%;
+          background-color: #4CAF50;
+          border-radius: 10px;
+          width: 0%;
+          transition: width 0.5s ease;
+        }
