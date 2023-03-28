@@ -94,11 +94,6 @@ if(isset($_POST["complete"])){
 }
 ?>
 
-
-
-
-
-
 <div class="container">
 <div class="leaderboard-container">
     <h2>User History</h2>
