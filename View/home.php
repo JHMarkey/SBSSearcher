@@ -55,6 +55,7 @@ $results = array();
 while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
     $results[] = $row;
 }
+  
 
 $conn = connect();
 $query = "SELECT Users.UserFN, Users.UserSN, COUNT(UserCourse.CourseID) AS NumCoursesCompleted FROM Users LEFT JOIN UserCourse ON Users.UserID = UserCourse.UserID GROUP BY Users.UserID, Users.UserFN, Users.UserSN";                                       
@@ -66,6 +67,7 @@ $results1 = array();
 while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
     $results1[] = $row;
 }
+
 
 
 $query = "SELECT * FROM Courses";
@@ -82,7 +84,8 @@ if(isset($_POST["complete"])){
 
     $courseID = $_POST["complete"];
     
-    $sql = "INSERT INTO UserCourse (CourseID, UserID) VALUES (?, (SELECT UserID FROM Users WHERE UserFN = ? AND UserSN = ? AND UserEmail = ?))";
+    $sql = $sql = "INSERT INTO UserCourse (CourseID, UserID) VALUES (?, (SELECT UserID FROM Users WHERE UserFN = ? AND UserSN = ? AND UserEmail = ?))";
+
 
     $userFN = $_SESSION["FN"];
     $userSN = $_SESSION["SN"];
