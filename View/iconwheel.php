@@ -1,6 +1,6 @@
 <?php
 require("../View/_inc/avatarhead.php");
-require("../View/_inc/header.php");
+require("../View/_inc/sidebar.php");
 ?>
 
 <div class="unboxing-container">

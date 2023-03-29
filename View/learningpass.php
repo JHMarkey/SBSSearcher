@@ -1,7 +1,7 @@
 <?php 
 require ("../View/_inc/head.php");
-require("../View/_inc/header.php");
-
+//require("../View/_inc/header.php");
+require("../View/_inc/sidebar.php");
 function connect(){
     $serverName = "sbss.database.windows.net"; // Server name
     $connectionOptions = array(
@@ -23,8 +23,8 @@ function connect(){
   
 ?>
 
-
-	<div class="battle-pass">
+	<div class="battle-pass" style="padding-top: 2%">
+      <h3> Current Progress </h3>
         <div class="progress-bar">
             <div class="progress-bar__fill"></div>
                 <div class="progress-bar__text">Level 1 - 0%</div>
@@ -48,5 +48,4 @@ function connect(){
             </div>
 		</div>
 	</div>
-
-    <script src = "../View/scripts/LearningPass.js"></script>
+      <script src = "../View/scripts/LearningPass.js"></script>
