@@ -43,7 +43,7 @@ function connect(){
   <h3>Current Progress</h3>
   <div class="progress-bar">
     <div class="progress-bar__fill" style="width: <?php echo $currentProgress ?>%;"></div>
-    <div class="progress-bar__text">Level <?php echo $level + 1 ?> - <?php echo $currentProgress ?>%</div>
+    <div class="progress-bar__text">Level <?php echo $level?> - <?php echo $currentProgress ?>%</div>
     <div class="progress-bar__next-level">Level <?php echo $level + 2 ?> - <?php echo ($level + 2) % 100 == 0 ? '100' : (($level + 2) % 100) * 5 ?>%</div>
   </div>
   <div class="level-rewards">

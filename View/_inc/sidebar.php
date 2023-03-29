@@ -31,6 +31,10 @@ require("head.php");
           <li class="list-group-item py-1">
             <a href="../View/iconwheel.php" class="text-reset">Icon Wheel</a>
           </li>
+          <!-- Logout -->
+          <li class="list-group-item py-1 mt-auto">
+              <a href="../Controller/logout.php" class="text-reset">Logout <i class="fas fa-sign-out-alt"></i></a>
+          </li>
         </ul>
         <!-- Collapse 1 -->
 

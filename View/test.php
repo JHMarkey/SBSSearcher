@@ -20,6 +20,7 @@ session_start();
             height: 1000px;
             width: 2500px;
             text-align: center;
+            padding-top: 5%;
         }
         #chat-messages {
             max-height: 500px;
