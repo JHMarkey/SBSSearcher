@@ -1,19 +1,19 @@
 <?php
 require("../View/_inc/head.php");
-require("../View/_inc/loggedHeader.php");
+require("../View/_inc/sidebar.php");
 
 
 session_start();
 if(isset($_SESSION["FN"])){
     if(null!=$_SESSION["FN"] && null!=$_SESSION["SN"] && null!= $_SESSION["E"]){        
-        drawHeader();
+        
     }
 }
  else if(null != $_GET["FN"] && null != $_GET["SN"] && null != $_GET["E"]){
     $_SESSION["FN"] = $_GET["FN"];
     $_SESSION["SN"] = $_GET["SN"];
     $_SESSION["E"] = $_GET["E"];
-    drawHeader();
+    
 }else{
     session_abort();
     ?> <script> alert("Error Authenticating Credentials.\nReturning to Login.");</script><?php

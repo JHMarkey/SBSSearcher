@@ -1,8 +1,7 @@
 <?php
 require("../View/_inc/head.php");
-require("../View/_inc/loggedHeader.php");
+require("../View/_inc/sidebar.php");
 session_start();
-drawHeader();
 
 function connect(){
     $serverName = "sbss.database.windows.net"; // Server name
