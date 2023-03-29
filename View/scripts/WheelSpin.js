@@ -3,7 +3,7 @@ function unbox() {
 	var finalItemDiv = document.getElementById("final-item");
 
 	// array of possible items
-	var items = ["../Assets/Icons/bunny.png", "../Assets/Icons/cat.png", "../Assets/Icons/clown1.png", "../Assets/Icons/clown.png", "../Assets/Icons/cowboy.png","../Assets/Icons/cupcake.png", "../Assets/Icons/dead.png", "../Assets/Icons/devil.png", "../Assets/Icons/dracula.png", "../Assets/Icons/robot.png", "../Assets/Icons/soft-drink.png"];
+	var items = ["bunny.png", "cat.png", "clown1.png", "clown.png", "cowboy.png","cupcake.png", "dead.png", "devil.png", "dracula.png", "robot.png", "soft-drink.png"];
 	
 	// number of times to cycle through possible items
 	var cycles = 25;
@@ -21,20 +21,20 @@ function unbox() {
 		var cycleTime = initialCycleTime * Math.pow(1.05, i);
 		setTimeout(function() {
 			randomItem = items[Math.floor(Math.random() * items.length)];
-			itemCycleDiv.innerHTML = "<img src='" + randomItem + "'/>";
+			itemCycleDiv.innerHTML = "<img src='../Assets/Icons/" + randomItem + "' class = 'selectedIcon'/>";
 		}, i * cycleTime);
 	}
 	
 	// display the final item after all cycles are complete
 	setTimeout(function() {
 		randomItem = items[Math.floor(Math.random() * items.length)];
-		itemCycleDiv.innerHTML = "<img src='" + randomItem + "'/>";
+		itemCycleDiv.innerHTML = "<img src='../Assets/Icons/" + randomItem + "' class = 'selectedIcon'/>";
 		saveItemToDatabase(randomItem);
 	}, cycles * initialCycleTime);
 
 	function saveItemToDatabase(item) {
 		// create a JSON object containing the item to be saved
-		var itemData = { item: "images/" + item };
+		var itemData = { item: item };
 		// Create a new XMLHttpRequest object
 		var xhr = new XMLHttpRequest();
 

@@ -28,7 +28,8 @@ function connect(){
 		die(print_r(sqlsrv_errors(), true));
 	} else {
 		$iconID = null;
-        $tsql = "SELECT IconID FROM Icons WHERE IconName = ?";
+        $tsql = "SELECT IconID FROM Icons WHERE IconFile = ?";
+        print_r($itemData['item']);
         $params = array($itemData['item']); // Parameters for the SQL query
   
         $stmt = sqlsrv_query($conn, $tsql, $params); // Executing the SQL query on the database connection
@@ -38,12 +39,28 @@ function connect(){
           die(print_r(sqlsrv_errors()));
         }
         
-        $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC); // Fetching the query result row
-            
-        $iconID = $row['IconID'];
+        $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+        if (!empty($row)) {
+            $iconID = $row['IconID'];
+        } else {
+            die("Icon not found");
+        }
         
         sqlsrv_free_stmt($stmt);
-        $userID = 1;
+        session_start();
+        $fn = $_SESSION['FN'];
+        $sn = $_SESSION['SN'];
+        $sql = "SELECT UserID FROM Users WHERE UserFN = ? AND UserSN = ?";
+        $params = array($fn, $sn);
+        $stmt = sqlsrv_query($conn, $sql, $params);
+
+        if ($stmt === false) {
+          die(print_r(sqlsrv_errors()));
+        }
+        
+        $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+
+        $userID = $row['UserID'];
         // Insert the data into the UserIcon table
         $tsql = "INSERT INTO UserIcon (UserID, IconID) VALUES (?, ?)";
         $params = array($userID, $iconID);

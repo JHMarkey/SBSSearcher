@@ -8,8 +8,8 @@ require("../View/_inc/sidebar.php");
 		<button onclick="unbox()">Unbox</button>
 		<div id="unboxing-area">
 	        <p>Click the button to unbox an icon</p>
-	        <div id="item-cycle"></div>
-	        <div id="final-item"></div>
+	        <div id="item-cycle" ></div>
+	        <div id="final-item" ></div>
         </div>
 		<div id="user-history">
 			<h2>Your Unboxing History</h2>

@@ -1,6 +1,7 @@
-img {
-	max-width: 100px;
-	max-height: 100px;
+.selectedIcon {
+	max-width: 200px;
+	max-height: 200px;
+	background-color: white;
   }
 
 

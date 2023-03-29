@@ -1,8 +1,8 @@
 <?php
 require("../View/_inc/head.php");
-require("../View/_inc/loggedHeader.php");
+require("../View/_inc/sidebar.php");
 session_start();
-drawHeader();
+
 ?>
 
 <head>
@@ -127,7 +127,7 @@ instance.on({
 </script>
 
 
-<div class="container-fluid bg-grey" id="chat-container">
+
     <div class="row justify-content-center">
         <div class="col-md-6" id="chat-window">
             <div id="chat-messages">
@@ -136,7 +136,7 @@ instance.on({
     </div>
     </div>
   </div>
-</div>
+
 
 
 
