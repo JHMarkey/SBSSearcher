@@ -58,10 +58,10 @@ require("head.php");
       </button>
 
       <!-- Brand -->
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="home.php">
         <img
           src="../Assets/Icons/SBSLogo.jpg"
-          height="40"
+          height="10px"
           alt="SBS"
           loading="lazy"
         />
@@ -76,7 +76,7 @@ require("head.php");
             <img
               src="../Assets/Icons/bunny.png"
               class="rounded-circle"
-              height="40"
+              height="10px"
               alt="Avatar"
               loading="lazy"
             />
