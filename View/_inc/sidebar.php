@@ -1,6 +1,4 @@
-<?php
-require("head.php");
-?>
+
 <header>
   <!-- Sidebar -->
   <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
@@ -30,6 +28,9 @@ require("head.php");
           </li>
           <li class="list-group-item py-1">
             <a href="../View/iconwheel.php" class="text-reset">Icon Wheel</a>
+          </li>
+          <li class="list-group-item py-1">
+            <a href="../View/game.php" class="text-reset">Game</a>
           </li>
           <!-- Logout -->
           <li class="list-group-item py-1 mt-auto">

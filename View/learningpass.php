@@ -59,6 +59,25 @@ function connect(){
       ?>
     </div>
   </div>
+  <div class="claim-reward">
+    <form method="POST">
+      <input type="submit" name="claim" value="Claim">
+    </form>
+    <?php
+    $userID = 5;
+      if (isset($_POST['claim'])) {
+        $query = "INSERT INTO UserEquip(UserID, EID, Selected) VALUES (?,?,?)";
+        $params = array($userID, $level, 0); 
+        $stmt = sqlsrv_prepare($conn, $query, $params);
+        if (!$stmt) {
+          die(print_r(sqlsrv_errors(), true));
+        }
+        if (sqlsrv_execute($stmt)) {
+          echo '<p>Claimed!</p>';
+        } else {
+          echo '<p>Already Claimed this Level!</p>';
+        }
+      }
+    ?>
+  </div>
 </div>
-
-      <script src = "../View/scripts/LearningPass.js"></script>

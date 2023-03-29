@@ -1,9 +1,7 @@
 <?php
 require("../View/_inc/head.php");
 require("../View/_inc/sidebar.php");
-echo "<div style = 'padding-top:100px'>";
-    
-    echo "</div>";
+
 session_start();  
 function connect(){
   $serverName = "sbss.database.windows.net"; // Server name
@@ -23,9 +21,10 @@ function connect(){
 
 $conn = connect();                                                
 $fn = $_SESSION['FN'];
-$sn = $_SESSION['SN'];
-$sql = "SELECT UserID FROM Users WHERE UserFN = ? AND UserSN = ?";
-$params = array($fn, $sn);
+  $sn = $_SESSION['SN'];
+  $e = $_SESSION['E'];
+  $sql = "SELECT UserID FROM Users WHERE UserFN = ? AND UserSN = ? AND UserEmail = ?";
+  $params = array($fn, $sn, $e);
 $stmt = sqlsrv_query($conn, $sql, $params);
 
 if ($stmt === false) {
@@ -40,6 +39,10 @@ if(!empty($row)){
   $sql = "SELECT IconID FROM UserIcon WHERE UserID = ?";
   $params = array($userID);
   $idstmt = sqlsrv_query($conn, $sql, $params); 
+  
+  $sql = "SELECT EID FROM UserEquip WHERE UserID = ?";
+  $params = array($userID);
+  $estmt = sqlsrv_query($conn, $sql, $params); 
   
 }else{
   $name = "Currently No Available Icons, Complete Courses to unlock some";
@@ -109,8 +112,23 @@ if(!empty($row)){
                                 <div class="col-10" style = "padding-top: 10px" >
                                     <select class="select form-control-lg" name="EquipmentSelection">
                                         <option value="Default" disabled>-----Select Tool-----</option>
-                                        <option value="Equipment1">Tool 1</option>
-                                        <option value="Equipment2">Tool 2</option>
+                                        <?php
+                                          while($row = sqlsrv_fetch_array($estmt, SQLSRV_FETCH_ASSOC)){    
+                                          $eID = $row['EID'];
+                                          $sql = "SELECT EquipmentName FROM Equipment WHERE EID = ?";
+                                          $params = array($eID);
+                                          $stmt = sqlsrv_query($conn, $sql, $params);
+                                          $name= "";
+                                          if(empty($row)){
+                                            $name = "Currently No Available Icons, Complete Courses to unlock some";
+                                          }else{            
+                                            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                                              $name = $row['IconName'];                                                        
+                                            }       
+                                          }    
+                                          echo "<option value ='$name'>$name";
+                                          }  
+                                        ?> 
                                     </select>
                                     <label class="form-label select-label">Select Tool</label>
                                 </div>

@@ -3,7 +3,7 @@ function unbox() {
 	var finalItemDiv = document.getElementById("final-item");
 
 	// array of possible items
-	var items = ["bunny.png", "cat.png", "clown1.png", "clown.png", "cowboy.png","cupcake.png", "dead.png", "devil.png", "dracula.png", "robot.png", "soft-drink.png"];
+	var items = ["bunny.png", "cat.png", "clown (1).png", "clown.png", "cowboy.png","cupcake.png", "dead.png", "devil.png", "dracula.png", "robot.png", "soft-drink.png"];
 	
 	// number of times to cycle through possible items
 	var cycles = 25;

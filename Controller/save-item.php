@@ -50,8 +50,9 @@ function connect(){
         session_start();
         $fn = $_SESSION['FN'];
         $sn = $_SESSION['SN'];
-        $sql = "SELECT UserID FROM Users WHERE UserFN = ? AND UserSN = ?";
-        $params = array($fn, $sn);
+        $e  = $_SESSION['E'];
+        $sql = "SELECT UserID FROM Users WHERE UserFN = ? AND UserSN = ? AND UserEmail = ?";
+        $params = array($fn, $sn, $e);
         $stmt = sqlsrv_query($conn, $sql, $params);
 
         if ($stmt === false) {
