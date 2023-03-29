@@ -51,25 +51,55 @@ drawHeader();
         serviceInstanceID: "e6aa3b1c-7516-4dbb-bff0-4359e072de17", // The ID of your service instance.
         onLoad: function(instance) {
 
-            wa_instance = instance;
+        sessionStorage.clear();
 
-            instance.render();
+wa_instance = instance;
 
-            instance.on({
-                type: "receive",
-                handler: function(response) {
-                    var chatbox = document.getElementById("chat-messages");
-                    var newMessage = document.createElement("div");
-                    console.log(response.data.output.generic[0].description);
-                    console.log(response.data.output.generic[0].text);
-                    console.log(response.data.output.generic[0].title);
-                    newMessage.innerHTML = response.data.output.generic[0].text;
+instance.render();
 
-                    chatbox.appendChild(newMessage);
-
-                }
-            });
+// Send a message to reset conversation context
+instance.send({
+    input: {
+        message_type: 'text',
+        text: '',
+        options: {
+            reset_context: true
         }
+    }
+});
+
+instance.on({
+    type: "receive",
+    handler: function(response) {
+        var chatbox = document.getElementById("chat-messages");
+        console.log(response.data.output.generic)
+        
+        // loop through the generic array and create a new message for each element
+        response.data.output.generic.forEach(function(element) {
+            var newMessage = document.createElement("div");
+            
+            // check if element is a string before setting innerHTML
+            if (typeof element.text === 'string') {
+                newMessage.innerHTML = element.text;
+            } else if (typeof element.description === 'string') {
+                newMessage.innerHTML = element.description;
+            } else if (typeof element.title === 'string') {
+                newMessage.innerHTML = element.title;
+            } else {
+                // if element is not a string, do nothing
+                return;
+            }
+            
+            chatbox.appendChild(newMessage);
+        });
+
+    }
+});
+
+
+
+}
+
 
     };
     setTimeout(function() {
