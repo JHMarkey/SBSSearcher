@@ -20,32 +20,42 @@ function connect(){
 
   $conn = connect();
 
-  
+  // Get numCourses
+
+  $query = "SELECT Users.UserFN, Users.UserSN, COUNT(UserCourse.CourseID) AS NumCoursesCompleted FROM Users LEFT JOIN UserCourse ON Users.UserID = UserCourse.UserID GROUP BY Users.UserID, Users.UserFN, Users.UserSN";                                       
+  $stmt = sqlsrv_query($conn, $query);
+  if ($stmt === false) {
+      die(print_r(sqlsrv_errors(), true));
+  }
+
+  $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+  $NumCoursesCompleted = $row['NumCoursesCompleted'];
+  $currentProgress = $NumCoursesCompleted * 20;
+  $level = $NumCoursesCompleted % 100;
+
 ?>
 
-	<div class="battle-pass" style="padding-top: 2%">
-      <h3> Current Progress </h3>
-        <div class="progress-bar">
-            <div class="progress-bar__fill"></div>
-                <div class="progress-bar__text">Level 1 - 0%</div>
-                    <div class="progress-bar__next-level">Level 2 - 5%</div>
-
+<div class="battle-pass" style="padding-top: 2%">
+  <h3>Current Progress</h3>
+  <div class="progress-bar">
+    <div class="progress-bar__fill" style="width: <?php echo $currentProgress ?>%;"></div>
+    <div class="progress-bar__text">Level <?php echo $level + 1 ?> - <?php echo $currentProgress ?>%</div>
+    <div class="progress-bar__next-level">Level <?php echo $level + 2 ?> - <?php echo ($level + 2) % 100 == 0 ? '100' : (($level + 2) % 100) * 5 ?>%</div>
+  </div>
+  <button onclick="updateProgressBar()">Increase Level</button>
+  <div class="level-rewards">
+    <h3>Level Rewards</h3>
+    <div id="container">
+      <?php
+        for ($i = 1; $i <= 20; $i++) {
+          echo '<div class="reward-box">';
+          echo '<img src="../Assets/Icons/reward-' . $i . '.png" alt="Reward ' . $i . '" class="reward-image">';
+          echo '<div>Reward ' . $i . '</div>';
+          echo '</div>';
+        }
+      ?>
     </div>
+  </div>
+</div>
 
-<button onclick="updateProgressBar()">Increase Level</button>
-
-		<div class="level-rewards">
-			<h3>Level Rewards</h3>
-			<div id="container">
-                <?php
-                    for ($i = 1; $i <= 20; $i++) {
-                    echo '<div class="reward-box">';
-                    echo '<img src="../Assets/Icons/reward-' . $i . '.png" alt="Reward ' . $i . '" class="reward-image">';
-                    echo '<div>Reward ' . $i . '</div>';
-                    echo '</div>';
-                    }
-                ?>
-            </div>
-		</div>
-	</div>
       <script src = "../View/scripts/LearningPass.js"></script>

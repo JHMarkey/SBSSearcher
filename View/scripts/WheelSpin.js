@@ -30,7 +30,7 @@ function unbox() {
 		randomItem = items[Math.floor(Math.random() * items.length)];
 		itemCycleDiv.innerHTML = "<img src='../Assets/Icons/" + randomItem + "' class = 'selectedIcon'/>";
 		saveItemToDatabase(randomItem);
-	}, cycles * initialCycleTime);
+		}, cycles * initialCycleTime);
 
 	function saveItemToDatabase(item) {
 		// create a JSON object containing the item to be saved
