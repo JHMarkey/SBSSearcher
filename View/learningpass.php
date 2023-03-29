@@ -27,11 +27,15 @@ function connect(){
   if ($stmt === false) {
       die(print_r(sqlsrv_errors(), true));
   }
-
+  $level=0;
   $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
   $NumCoursesCompleted = $row['NumCoursesCompleted'];
   $currentProgress = $NumCoursesCompleted * 20;
-  $level = $NumCoursesCompleted % 100;
+  if($currentProgress >= 100){
+    $level++;
+    $currentProgress %= 100;
+  }
+  
 
 ?>
 
@@ -42,7 +46,6 @@ function connect(){
     <div class="progress-bar__text">Level <?php echo $level + 1 ?> - <?php echo $currentProgress ?>%</div>
     <div class="progress-bar__next-level">Level <?php echo $level + 2 ?> - <?php echo ($level + 2) % 100 == 0 ? '100' : (($level + 2) % 100) * 5 ?>%</div>
   </div>
-  <button onclick="updateProgressBar()">Increase Level</button>
   <div class="level-rewards">
     <h3>Level Rewards</h3>
     <div id="container">
