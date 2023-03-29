@@ -1,7 +1,14 @@
+img {
+	max-width: 100px;
+	max-height: 100px;
+  }
+
+
 .unboxing-container {
 	max-width: 800px;
 	margin: auto;
 	text-align: center;
+
 }
 
 #unboxing-area {

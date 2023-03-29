@@ -1,15 +1,15 @@
 function unbox() {
 	var itemCycleDiv = document.getElementById("item-cycle");
 	var finalItemDiv = document.getElementById("final-item");
-	console.log("Hello World");
+
 	// array of possible items
-	var items = getMissingItems();
+	var items = ["../Assets/Icons/bunny.png", "../Assets/Icons/cat.png", "../Assets/Icons/clown1.png", "../Assets/Icons/clown.png", "../Assets/Icons/cowboy.png","../Assets/Icons/cupcake.png", "../Assets/Icons/dead.png", "../Assets/Icons/devil.png", "../Assets/Icons/dracula.png", "../Assets/Icons/robot.png", "../Assets/Icons/soft-drink.png"];
 	
 	// number of times to cycle through possible items
-	var cycles = 20;
+	var cycles = 25;
 	
-	// time (in milliseconds) between each cycle
-	var cycleTime = 100;
+	// initial time (in milliseconds) between each cycle
+	var initialCycleTime = 70;
 	
 	// time (in milliseconds) to display the final item
 	var finalTime = 1000;
@@ -17,66 +17,41 @@ function unbox() {
 	var randomItem = null;
 	// loop through possible items multiple times before settling on the final item
 	for (var i = 0; i < cycles; i++) {
+		// calculate the cycle time based on the current iteration number and the total number of iterations
+		var cycleTime = initialCycleTime * Math.pow(1.05, i);
 		setTimeout(function() {
 			randomItem = items[Math.floor(Math.random() * items.length)];
-			itemCycleDiv.innerHTML = randomItem;
+			itemCycleDiv.innerHTML = "<img src='" + randomItem + "'/>";
 		}, i * cycleTime);
 	}
 	
 	// display the final item after all cycles are complete
 	setTimeout(function() {
-		finalItemDiv.innerHTML = randomItem;
-		itemCycleDiv.style.display = "none";
-		finalItemDiv.style.display = "block";
-		
+		randomItem = items[Math.floor(Math.random() * items.length)];
+		itemCycleDiv.innerHTML = "<img src='" + randomItem + "'/>";
 		saveItemToDatabase(randomItem);
-	}, cycles * cycleTime + finalTime);
-}
+	}, cycles * initialCycleTime);
 
-function getMissingItems(){
-	console.log("HERE");
-	// Create a new XMLHttpRequest object
-	var xhr = new XMLHttpRequest();
+	function saveItemToDatabase(item) {
+		// create a JSON object containing the item to be saved
+		var itemData = { item: "images/" + item };
+		// Create a new XMLHttpRequest object
+		var xhr = new XMLHttpRequest();
 
-	// Open a new POST request to GetMissingItems.php file
-	xhr.open("POST", "../Controller/GetMissingIcons.php");
+		// Open a new POST request to the save-item.php file
+		xhr.open("POST", "../Controller/save-item.php");
 
-	// Set the content type header to JSON
-	xhr.setRequestHeader("Content-Type", "application/json");
+		// Set the content type header to JSON
+		xhr.setRequestHeader("Content-Type", "application/json");
 
-	xhr.onreadystatechange = function(){
-		res = "No Response";
-		if (xhr.readyState === 4 && xhr.status === 200) {
-			res = xhr.responseText;
-		}		 
-	};
+		// Send the JSON object as the request body
+		xhr.send(JSON.stringify(itemData));
 
-	res = xhr.onreadystatechange();
-	console.log("HERE");
-	console.log(res);
-	return res;
-}	
-
-function saveItemToDatabase(item) {
-	// create a JSON object containing the item to be saved
-	var itemData = { item: item };
-	// Create a new XMLHttpRequest object
-	var xhr = new XMLHttpRequest();
-
-	// Open a new POST request to the save-item.php file
-	xhr.open("POST", "../Controller/save-item.php");
-
-	// Set the content type header to JSON
-	xhr.setRequestHeader("Content-Type", "application/json");
-
-	// Send the JSON object as the request body
-	xhr.send(JSON.stringify(itemData));
-
-	// Handle the response
-	xhr.onreadystatechange = function() {
-		if (xhr.readyState === 4 && xhr.status === 200) {
-			console.log(xhr.responseText);
-		}
-	};
-		
+		// Handle the response
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				console.log(xhr.responseText);
+			}
+		};
+	}
 }
