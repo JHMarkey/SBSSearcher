@@ -4,20 +4,26 @@ require("../View/_inc/header.php");
 ?>
 
 <div class="container">
-  <div class="group icons-group">
-    <div class="drag-box"></div>
-    <div class="drag-box"></div>
-    <div class="drag-box"></div>
-  </div>
-  <div class="group equipment-group">
-    <div class="drag-box"></div>
-    <div class="drag-box"></div>
-    <div class="drag-box"></div>
-  </div>
-  <div class="drop-area">
-    <div class="drop-zone droppable-icon"></div>
-    <div class="drop-zone droppable-equipment"></div>
-  </div>
+<form>
+  <label>
+    <h1>Select an icon:</h1>
+    <select name="icon">
+      <option value="icon1">Icon 1</option>
+      <option value="icon2">Icon 2</option>
+      <option value="icon3">Icon 3</option>
+    </select>
+  </label>
+
+  <label>
+    <h1> Select a piece of equipment: </h1>
+    <select name="equipment">
+      <option value="equipment1">Equipment 1</option>
+      <option value="equipment2">Equipment 2</option>
+      <option value="equipment3">Equipment 3</option>
+    </select>
+  </label>
+</form>
+
 </div>
 
 <script src="../View/scripts/Profile.js"></script>

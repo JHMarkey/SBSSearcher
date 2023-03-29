@@ -8,6 +8,7 @@
     <link rel="stylesheet" type = "text/css" href = "../Assets/css/Style.css">
     <link rel="stylesheet" type = "text/css" href = "../Assets/css/FooterStyle.css">
     <link rel="stylesheet" type = "text/css" href = "../Assets/css/HeaderStyle.css">
+    <script src="https://use.fontawesome.com/9e6aa3e851.js"></script>
 
   
     
