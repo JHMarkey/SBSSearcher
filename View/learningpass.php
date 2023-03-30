@@ -22,16 +22,17 @@ function connect(){
 
   // Get numCourses
 
-  $query = "SELECT Users.UserFN, Users.UserSN, COUNT(UserCourse.CourseID) AS NumCoursesCompleted FROM Users LEFT JOIN UserCourse ON Users.UserID = UserCourse.UserID GROUP BY Users.UserID, Users.UserFN, Users.UserSN";                                       
-  $stmt = sqlsrv_query($conn, $query);
+  $query = "SELECT COUNT(CourseID) AS NumCoursesCompleted FROM UserCourse WHERE UserID = ?";
+  $params = array(6);                                       
+  $stmt = sqlsrv_query($conn, $query, $params);
   if ($stmt === false) {
       die(print_r(sqlsrv_errors(), true));
   }
-  $level=0;
+  $level=1;
   $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
   $NumCoursesCompleted = $row['NumCoursesCompleted'];
   $currentProgress = $NumCoursesCompleted * 20;
-  if($currentProgress >= 100){
+  while($currentProgress >= 100){
     $level++;
     $currentProgress %= 100;
   }
@@ -64,7 +65,7 @@ function connect(){
       <input type="submit" name="claim" value="Claim">
     </form>
     <?php
-    $userID = 5;
+    $userID = 6;
       if (isset($_POST['claim'])) {
         $query = "INSERT INTO UserEquip(UserID, EID, Selected) VALUES (?,?,?)";
         $params = array($userID, $level, 0); 
@@ -75,6 +76,7 @@ function connect(){
         if (sqlsrv_execute($stmt)) {
           echo '<p>Claimed!</p>';
         } else {
+          echo( $NumCoursesCompleted);
           echo '<p>Already Claimed this Level!</p>';
         }
       }

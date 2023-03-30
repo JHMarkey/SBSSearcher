@@ -40,15 +40,17 @@ if(!empty($row)){
   $params = array($userID);
   $idstmt = sqlsrv_query($conn, $sql, $params); 
   
-  $sql = "SELECT EID FROM UserEquip WHERE UserID = ?";
+  $esql = "SELECT EID FROM UserEquip WHERE UserID = ?";
   $params = array($userID);
-  $estmt = sqlsrv_query($conn, $sql, $params); 
+  $estmt = sqlsrv_query($conn, $esql, $params); 
   
 }else{
   $name = "Currently No Available Icons, Complete Courses to unlock some";
 }
 
-     
+$sql = "UPDATE UserIcon SET Selected=0 WHERE UserID = ?";
+$params = array($userID);
+$ustmt = sqlsrv_prepare($conn, $sql, $params);  
 ?>
 
 <section class="vh-100 gradient-custom">
@@ -112,21 +114,21 @@ if(!empty($row)){
                                 <div class="col-10" style = "padding-top: 10px" >
                                     <select class="select form-control-lg" name="EquipmentSelection">
                                         <option value="Default" disabled>-----Select Tool-----</option>
-                                        <?php
+                                        <?php   
                                           while($row = sqlsrv_fetch_array($estmt, SQLSRV_FETCH_ASSOC)){    
                                           $eID = $row['EID'];
-                                          $sql = "SELECT EquipmentName FROM Equipment WHERE EID = ?";
+                                          $sql = "SELECT EName FROM Equipment WHERE EID = ?";
                                           $params = array($eID);
                                           $stmt = sqlsrv_query($conn, $sql, $params);
                                           $name= "";
-                                          if(empty($row)){
-                                            $name = "Currently No Available Icons, Complete Courses to unlock some";
+                                          if($stmt === false){
+                                            $name = "Currently No Available Tools, Complete Courses to unlock some";
                                           }else{            
                                             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-                                              $name = $row['IconName'];                                                        
+                                              $name = $row['EName'];                                                        
                                             }       
                                           }    
-                                          echo "<option value ='$name'>$name";
+                                          echo "<option value ='$name'>$name</option>";
                                           }  
                                         ?> 
                                     </select>
