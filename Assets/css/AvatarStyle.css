@@ -1,0 +1,61 @@
+.selectedIcon {
+	width: 200px;
+	height: 200px;
+	background-color: white;
+  }
+
+
+.unboxing-container {
+	max-width: 800px;
+	margin: auto;
+	text-align: center;
+
+}
+
+#unboxing-area {
+	border: 2px solid black;
+	padding: 20px;
+	margin: 20px;
+	height: 300px;
+}
+
+#user-history {
+	margin-top: 50px;
+	text-align: left;
+}
+
+.item {
+	width: 100px;
+	height: 100px;
+	margin: 10px;
+	border: 2px solid black;
+	display: inline-block;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 100px;
+	font-size: 24px;
+}
+
+#unboxing-area {
+	border: 2px solid black;
+	padding: 20px;
+	margin: 20px;
+	height: 300px;
+	position: relative;
+}
+
+#item-cycle {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.final-item {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: none;
+}
+
